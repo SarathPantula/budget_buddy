@@ -4,7 +4,7 @@ services:
   budget_buddy_db:
     container_name: budget_buddy_db
     hostname: budget_buddy_db
-    build: ./postgres
+    build: ./budget_buddy_db
     environment:
       POSTGRES_USER_FILE: /run/secrets/db_user
       POSTGRES_PASSWORD_FILE: /run/secrets/db_password
@@ -20,11 +20,11 @@ services:
 
 secrets:
   db_user:
-    file: ./postgres/secrets/db_user.txt
+    file: ./budget_buddy_db/secrets/db_user.txt
   db_password:
-    file: ./postgres/secrets/db_password.txt
+    file: ./budget_buddy_db/secrets/db_password.txt
   db_name:
-    file: ./postgres/secrets/db_name.txt
+    file: ./budget_buddy_db/secrets/db_name.txt
 
 volumes:
   pgdata:

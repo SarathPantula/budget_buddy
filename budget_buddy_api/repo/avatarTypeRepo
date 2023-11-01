@@ -1,0 +1,40 @@
+const pool = require('./config/dbConfig');
+
+const getAllAvatarTypes = async () => {
+    const results = await pool.query('SELECT * FROM avatar_types');
+    return results.rows;
+}
+
+const getAvatarTypeById = async (id) => {
+    const results = await pool.query('SELECT * FROM avatar_types WHERE id = $1', [id]);
+    return results.rows[0];
+}
+
+const getAvatarTypeByName = async (name) => {
+    const results = await pool.query('SELECT * FROM avatar_types WHERE name = $1', [name]);
+    return results.rows[0];
+}
+
+const createAvatarType = async (name) => {
+    const results = await pool.query('INSERT INTO avatar_types (name) VALUES ($1) RETURNING *', [name]);
+    return results.rows[0];
+}
+
+const updateAvatarType = async (id, name) => {
+    const results = await pool.query('UPDATE avatar_types SET name = $1 WHERE id = $2 RETURNING *', [name, id]);
+    return results.rows[0];
+}
+
+const deleteAvatarType = async (id) => {
+    const results = await pool.query('DELETE FROM avatar_types WHERE id = $1 RETURNING *', [id]);
+    return results.rows[0];
+}
+
+module.exports = { 
+    getAllAvatarTypes, 
+    getAvatarTypeById, 
+    getAvatarTypeByName, 
+    createAvatarType, 
+    updateAvatarType, 
+    deleteAvatarType 
+};
