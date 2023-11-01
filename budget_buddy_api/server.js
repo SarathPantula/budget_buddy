@@ -1,5 +1,4 @@
 const express = require('express');
-const userRoutes = require('./routes/userRoutes');
 const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
 
 const app = express();
