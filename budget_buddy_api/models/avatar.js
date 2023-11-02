@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/dbConfig');
+const AvatarType = require('./avatarType');
 
 class Avatar extends Model { }
 
@@ -17,7 +18,11 @@ Avatar.init({
     },
     AvatarTypeID: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'AvatarTypes',
+            key: 'AvatarTypeID'
+        }
     },
     ImageURL: {
         type: DataTypes.STRING,
@@ -27,5 +32,13 @@ Avatar.init({
     sequelize,
     modelName: 'Avatar',
     tableName: 'Avatars',
-    timestamps: true
+    timestamps: false
 });
+
+Avatar.belongsTo(AvatarType, 
+    { 
+        foreignKey: 'AvatarTypeID',
+        as: 'AvatarType'
+    });
+
+module.exports = Avatar;

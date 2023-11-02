@@ -19,7 +19,7 @@ AvatarType.init({
     sequelize,
     modelName: 'AvatarType',
     tableName: 'AvatarTypes',
-    timestamps: true
+    timestamps: false
 });
 
 module.exports = AvatarType;

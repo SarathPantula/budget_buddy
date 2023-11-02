@@ -7,6 +7,7 @@ class AvatarController {
             const avatars = await AvatarRepo.getAllAvatars();
             res.status(200).json(avatars);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }
@@ -17,6 +18,7 @@ class AvatarController {
             const avatar = await AvatarRepo.getAvatarById(id);
             res.status(200).json(avatar);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }
@@ -27,6 +29,7 @@ class AvatarController {
             const avatar = await AvatarRepo.getAvatarByTypeID(avatarTypeID);
             res.status(200).json(avatar);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }
@@ -39,6 +42,7 @@ class AvatarController {
             const avatar = await AvatarRepo.createAvatar(name, avatarTypeID, imageURL);
             res.status(200).json(avatar);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }
@@ -52,6 +56,7 @@ class AvatarController {
             const avatar = await AvatarRepo.updateAvatar(id, name, avatarTypeID, imageURL);
             res.status(200).json(avatar);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }
@@ -62,6 +67,7 @@ class AvatarController {
             const avatar = await AvatarRepo.deleteAvatar(id);
             res.status(200).json(avatar);
         } catch (err) {
+            console.log(err);
             res.status(500).json(err);
         }
     }

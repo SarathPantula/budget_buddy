@@ -6,6 +6,7 @@ const middlewares = require('./middleware');
 const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const avatarRoutes = require('./routes/avatarRoutes');
+const accountRoutes = require('./routes/accountRoutes');
 
 const app = express();
 
@@ -40,6 +41,9 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes
 app.use('/api/avatar-types', avatarTypeRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/avatars', avatarRoutes);
+app.use('/api/accounts', accountRoutes);
 
 // Error handling middleware
 middlewares.errorHandler(app);

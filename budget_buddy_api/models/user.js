@@ -49,7 +49,7 @@ User.init({
     sequelize,
     modelName: 'User',
     tableName: 'Users',
-    timestamps: true
+    timestamps: false
 });
 
 module.exports = User;

@@ -1,4 +1,5 @@
 const Avatar = require('../models/avatar');
+const AvatarType = require('../models/avatarType');
 
 class AvatarRepo {
     constructor(model) {
@@ -6,15 +7,32 @@ class AvatarRepo {
     }
 
     async getAllAvatars() {
-        return await this.model.findAll();
+        return await this.model.findAll({
+            include: [{
+                model: AvatarType,
+                as: 'AvatarType'
+            }]
+        });
     }
 
     async getAvatarById(id) {
-        return await this.model.findByPk(id);
+        return await this.model.findByPk(
+            id, {
+            include: [{
+                model: AvatarType,
+                as: 'AvatarType'
+            }]
+        });
     }
 
     async getAvatarByTypeID(avatarTypeID) {
-        return await this.model.findAll({ where: { AvatarTypeID: avatarTypeID } });
+        return await this.model.findAll({ 
+            where: { AvatarTypeID: avatarTypeID },
+            include: [{
+                model: AvatarType,
+                as: 'AvatarType'
+            }]
+        });
     }
 
     async createAvatar(name, avatarTypeID, imageURL) {
