@@ -6,7 +6,6 @@ const middlewares = require('./middleware');
 const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const avatarRoutes = require('./routes/avatarRoutes');
-const currencyCodeRoutes = require('./routes/currencyCodeRoutes');
 
 const app = express();
 
