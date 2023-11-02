@@ -1,34 +1,39 @@
-const sql = require('mssql');
+const Sequelize = require('sequelize');
 const fs = require('fs');
+const path = require('path');
 
 // Read Docker secrets
 const readSecret = (secretName) => {
     try {
-        console.log(`Attempting to read Docker secret: ${secretName}`);
-        const temp = fs.readFileSync(`.../budget_buddy_db/secrets/${secretName}`, 'utf8').trim();
-        console.log(`Successfully read Docker secret: ${secretName}`);
-        return temp;
+        const pathToSecret = path.join(__dirname, `../../budget_buddy_db/secrets/${secretName}`);
+        const secret = fs.readFileSync(pathToSecret, 'utf8').trim();
+        console.log(`Read Docker secret: ${secretName}`, secret);
+        return secret;
     } catch (err) {
-        console.error(`Failed to read Docker secret: ${secretName}`);
+        console.error(`Failed to read Docker secret: ${secretName}`, err);
         return null;
     }
 };
 
-// Azure SQL connection configuration
-const config = {
-    user: readSecret('db_user.txt'),
-    password: readSecret('db_password.txt'),
-    server: readServer('db_server.txt'), // Replace with your Azure SQL Server name
+// Azure SQL connection configuration using Sequelize
+const sequelize = new Sequelize({
+    dialect: 'mssql',
+    dialectModule: require('tedious'),
+    dialectOptions: {
+        options: {
+            encrypt: true,
+            enableArithAbort: true
+        }
+    },
+    host: readSecret('db_server.txt'),
     database: readSecret('db_name.txt'),
-    options: {
-        encrypt: true, // Necessary for Azure SQL
-        enableArithAbort: true
-    }
-};
+    username: readSecret('db_user.txt'),
+    password: readSecret('db_password.txt')
+});
 
-const pool = new sql.ConnectionPool(config);
-pool.connect()
+// Test connection
+sequelize.authenticate()
     .then(() => console.log("Connected to Azure SQL Database"))
     .catch(err => console.error('Database Connection Failed! Bad Config:', err));
 
-module.exports = pool;
+module.exports = sequelize;
