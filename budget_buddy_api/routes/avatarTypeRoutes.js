@@ -8,7 +8,7 @@ const router = express.Router();
  * /api/avatar-types:
  *  get:
  *    tags:
- *      - AvatarType
+ *      - Avatar Types
  *    summary: Get all avatar types
  *    description: Get all avatar types
  *    responses:
@@ -22,7 +22,7 @@ router.get('/', AvatarTypeController.getAllAvatarTypes);
  * /api/avatar-types/{id}:
  *  get:
  *    tags:
- *      - AvatarType
+ *      - Avatar Types
  *    summary: Get avatar type by id
  *    description: Get avatar type by id
  *    parameters:
@@ -43,7 +43,7 @@ router.get('/:id', AvatarTypeController.getAvatarTypeById);
  * /api/avatar-types:
  *  post:
  *    tags:
- *      - AvatarType
+ *      - Avatar Types
  *    summary: Create avatar type
  *    description: Create avatar type
  *    requestBody:
@@ -67,7 +67,7 @@ router.post('/', AvatarTypeController.createAvatarType);
  * /api/avatar-types/{id}:
  *  put:
  *    tags:
- *      - AvatarType
+ *      - Avatar Types
  *    summary: Update avatar type
  *    description: Update avatar type
  *    parameters:
@@ -98,7 +98,7 @@ router.put('/:id', AvatarTypeController.updateAvatarType);
  * /api/avatar-types/{id}:
  *  delete:
  *    tags:
- *      - AvatarType
+ *      - Avatar Types
  *    summary: Delete avatar type
  *    description: Delete avatar type
  *    parameters:
