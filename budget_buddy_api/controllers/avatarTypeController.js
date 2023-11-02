@@ -13,7 +13,7 @@ class AvatarTypeController {
 
     async getAvatarTypeById(req, res) {
         try {
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             const avatarType = await AvatarTypeRepo.getAvatarTypeById(id);
             res.status(200).json(avatarType);
         } catch (err) {
@@ -33,7 +33,7 @@ class AvatarTypeController {
 
     async updateAvatarType(req, res) {
         try {
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             const name = req.body.name;
             const avatarType = await AvatarTypeRepo.updateAvatarType(id, name);
             res.status(200).json(avatarType);
@@ -44,7 +44,7 @@ class AvatarTypeController {
 
     async deleteAvatarType(req, res) {
         try {
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             const avatarType = await AvatarTypeRepo.deleteAvatarType(id);
             res.status(200).json(avatarType);
         } catch (err) {

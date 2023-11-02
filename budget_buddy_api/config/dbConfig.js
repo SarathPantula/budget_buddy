@@ -6,9 +6,7 @@ const path = require('path');
 const readSecret = (secretName) => {
     try {
         const pathToSecret = path.join(__dirname, `../../budget_buddy_db/secrets/${secretName}`);
-        const secret = fs.readFileSync(pathToSecret, 'utf8').trim();
-        console.log(`Read Docker secret: ${secretName}`, secret);
-        return secret;
+        return fs.readFileSync(pathToSecret, 'utf8').trim();
     } catch (err) {
         console.error(`Failed to read Docker secret: ${secretName}`, err);
         return null;

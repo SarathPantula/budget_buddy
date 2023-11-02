@@ -4,6 +4,8 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const middlewares = require('./middleware');
 const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
+const userRoutes = require('./routes/userRoutes');
+const avatarRoutes = require('./routes/avatarRoutes');
 
 const app = express();
 
