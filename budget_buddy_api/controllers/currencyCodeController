@@ -1,4 +1,4 @@
-const currencyCodeRepo = require('../repositories/currencyCodeRepo');
+const currencyCodeRepo = require('../repo/currencyCodeRepo');
 
 class CurrencyCodeController {
 
