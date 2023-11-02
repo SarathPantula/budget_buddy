@@ -1,15 +1,25 @@
 const express = require('express');
+const sequelize = require('./config/database');
+const middlewares = require('./middleware');
 const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
 
 const app = express();
-const PORT = 3000;
 
-app.use(express.json());
+// Middleware configurations
+middlewares.bodyParser(app);
 
-// Use routes
-app.use('/users', userRoutes);
-app.use('/avatar-type', avatarTypeRoutes);
+// Routes
+app.use('/api/avatar-types', avatarTypeRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Error handling middleware
+middlewares.errorHandler(app);
+
+// Database connection and server start
+sequelize.sync()
+    .then(result => {
+        app.listen(3000);
+        console.log('Server started on port 3000');
+    })
+    .catch(err => {
+        console.error(err)
+    });

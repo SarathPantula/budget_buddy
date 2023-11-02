@@ -1,78 +1,56 @@
-const avatarType = require('./models/avatarType');
-const {
-    getAllAvatarTypes,
-    getAvatarTypeById,
-    getAvatarTypeByName,
-    createAvatarType,
-    updateAvatarType,
-    deleteAvatarType
-} = require('./repo/avatarTypeRepo');
+const AvatarTypeRepo = require('../repo/avatarTypeRepo');
 
-const getAvatarTypes = async (req, res) => {
-    try {
-        const avatarTypes = await getAllAvatarTypes();
-        res.status(200).json(avatarTypes);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+class AvatarTypeController {
+
+    async getAllAvatarTypes(req, res) {
+        try {
+            const avatarTypes = await AvatarTypeRepo.getAllAvatarTypes();
+            res.status(200).json(avatarTypes);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    async getAvatarTypeById(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const avatarType = await AvatarTypeRepo.getAvatarTypeById(id);
+            res.status(200).json(avatarType);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    async createAvatarType(req, res) {
+        try {
+            const name = req.body.name;
+            const avatarType = await AvatarTypeRepo.createAvatarType(name);
+            res.status(200).json(avatarType);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    async updateAvatarType(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const name = req.body.name;
+            const avatarType = await AvatarTypeRepo.updateAvatarType(id, name);
+            res.status(200).json(avatarType);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+
+    async deleteAvatarType(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const avatarType = await AvatarTypeRepo.deleteAvatarType(id);
+            res.status(200).json(avatarType);
+        } catch (err) {
+            res.status(500).json(err);
+        }
     }
 }
 
-const getAvatarTypeById = async (req, res) => {
-    try {
-        const avatarType = await getAvatarTypeById(req.params.id);
-        res.status(200).json(avatarType);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-}
-
-const getAvatarTypeByName = async (req, res) => {
-    try {
-        const avatarType = await getAvatarTypeByName(req.params.name);
-        res.status(200).json(avatarType);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-}
-
-const createAvatarType = async (req, res) => {
-    try {
-        const avatarType = await createAvatarType(req.body.name);
-        res.status(201).json(avatarType);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-}
-
-const updateAvatarType = async (req, res) => {
-    try {
-        const avatarType = await updateAvatarType(req.params.id, req.body.name);
-        res.status(200).json(avatarType);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-}
-
-const deleteAvatarType = async (req, res) => {
-    try {
-        const avatarType = await deleteAvatarType(req.params.id);
-        res.status(200).json(avatarType);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-}
-
-module.exports = {
-    getAvatarTypes,
-    getAvatarTypeById,
-    getAvatarTypeByName,
-    createAvatarType,
-    updateAvatarType,
-    deleteAvatarType
-};
+module.exports = new AvatarTypeController();
