@@ -1,10 +1,10 @@
-const AccountRepo = require('../repo/accountRepo');
+const accountManager = require('../repo/accountManager');
 
 class AccountController {
 
     async getAllAccounts(req, res) {
         try {
-            const accounts = await AccountRepo.getAllAccounts();
+            const accounts = await accountManager.getAllAccounts();
             res.status(200).json(accounts);
         } catch (err) {
             console.log(err);
@@ -15,7 +15,7 @@ class AccountController {
     async getAccountById(req, res) {
         try {
             const id = req.params.id;
-            const account = await AccountRepo.getAccountById(id);
+            const account = await accountManager.getAccountById(id);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);
@@ -26,7 +26,7 @@ class AccountController {
     async getAccountByUserID(req, res) {
         try {
             const userID = req.params.userID;
-            const account = await AccountRepo.getAccountByUserID(userID);
+            const account = await accountManager.getAccountByUserID(userID);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);
@@ -37,7 +37,7 @@ class AccountController {
     async getAccountByAccountTypeID(req, res) {
         try {
             const accountTypeID = req.params.accountTypeID;
-            const account = await AccountRepo.getAccountByAccountTypeID(accountTypeID);
+            const account = await accountManager.getAccountByAccountTypeID(accountTypeID);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);
@@ -52,7 +52,7 @@ class AccountController {
             const name = req.body.name;
             const balance = req.body.balance;
             const avatarID = req.body.avatarID;
-            const account = await AccountRepo.createAccount(userID, accountTypeID, name, balance, avatarID);
+            const account = await accountManager.createAccount(userID, accountTypeID, name, balance, avatarID);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);
@@ -68,7 +68,7 @@ class AccountController {
             const name = req.body.name;
             const balance = req.body.balance;
             const avatarID = req.body.avatarID;
-            const account = await AccountRepo.updateAccount(id, userID, accountTypeID, name, balance, avatarID);
+            const account = await accountManager.updateAccount(id, userID, accountTypeID, name, balance, avatarID);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);
@@ -79,7 +79,7 @@ class AccountController {
     async deleteAccount(req, res) {
         try {
             const id = req.params.id;
-            const account = await AccountRepo.deleteAccount(id);
+            const account = await accountManager.deleteAccount(id);
             res.status(200).json(account);
         } catch (err) {
             console.log(err);

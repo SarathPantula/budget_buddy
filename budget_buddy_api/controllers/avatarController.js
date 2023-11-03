@@ -1,10 +1,10 @@
-const AvatarRepo = require('../repo/avatarRepo');
+const avatarManager = require('../repo/avatarManager');
 
 class AvatarController {
 
     async getAllAvatars(req, res) {
         try {
-            const avatars = await AvatarRepo.getAllAvatars();
+            const avatars = await avatarManager.getAllAvatars();
             res.status(200).json(avatars);
         } catch (err) {
             console.log(err);
@@ -15,7 +15,7 @@ class AvatarController {
     async getAvatarById(req, res) {
         try {
             const id = req.params.id;
-            const avatar = await AvatarRepo.getAvatarById(id);
+            const avatar = await avatarManager.getAvatarById(id);
             res.status(200).json(avatar);
         } catch (err) {
             console.log(err);
@@ -26,7 +26,7 @@ class AvatarController {
     async getAvatarByTypeID(req, res) {
         try {
             const avatarTypeID = req.params.avatarTypeID;
-            const avatar = await AvatarRepo.getAvatarByTypeID(avatarTypeID);
+            const avatar = await avatarManager.getAvatarByTypeID(avatarTypeID);
             res.status(200).json(avatar);
         } catch (err) {
             console.log(err);
@@ -39,7 +39,7 @@ class AvatarController {
             const name = req.body.name;
             const avatarTypeID = req.body.avatarTypeID;
             const imageURL = req.body.imageURL;
-            const avatar = await AvatarRepo.createAvatar(name, avatarTypeID, imageURL);
+            const avatar = await avatarManager.createAvatar(name, avatarTypeID, imageURL);
             res.status(200).json(avatar);
         } catch (err) {
             console.log(err);
@@ -53,7 +53,7 @@ class AvatarController {
             const name = req.body.name;
             const avatarTypeID = req.body.avatarTypeID;
             const imageURL = req.body.imageURL;
-            const avatar = await AvatarRepo.updateAvatar(id, name, avatarTypeID, imageURL);
+            const avatar = await avatarManager.updateAvatar(id, name, avatarTypeID, imageURL);
             res.status(200).json(avatar);
         } catch (err) {
             console.log(err);
@@ -64,7 +64,7 @@ class AvatarController {
     async deleteAvatar(req, res) {
         try {
             const id = req.params.id;
-            const avatar = await AvatarRepo.deleteAvatar(id);
+            const avatar = await avatarManager.deleteAvatar(id);
             res.status(200).json(avatar);
         } catch (err) {
             console.log(err);
