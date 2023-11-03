@@ -14,7 +14,25 @@ Avatar.init({
     Name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            notEmpty: {
+                msg: 'Name can not be left blank.'
+            },
+            notNull: {
+                msg: 'Name is required.'
+            },
+            len: {
+                args: [3, 50],
+                msg: 'Name must be between 3 and 50 characters in length.'
+            },
+            // Check for only letters and numbers
+            onlyLettersAndNumbers(value) {
+                if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                    throw new Error('Name must only contain letters and numbers.');
+                }
+            }
+        }
     },
     AvatarTypeID: {
         type: DataTypes.UUID,

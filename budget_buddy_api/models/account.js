@@ -22,7 +22,25 @@ Account.init({
     Name: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+            notEmpty: {
+                msg: 'Name can not be left blank.'
+            },
+            notNull: {
+                msg: 'Name is required.'
+            },
+            len: {
+                args: [3, 50],
+                msg: 'Name must be between 3 and 50 characters in length.'
+            },
+            // Check for only letters and numbers
+            onlyLettersAndNumbers(value) {
+                if (!/^[a-zA-Z0-9]+$/.test(value)) {
+                    throw new Error('Name must only contain letters and numbers.');
+                }
+            }
+        }
     },
     InitialBalance: {
         type: DataTypes.DECIMAL(10, 2),
@@ -52,30 +70,14 @@ Account.init({
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
-    FirstName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    LastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    Email: {
-        type: DataTypes.STRING,
+    LastUpdated: {
+        type: DataTypes.DATE,
         allowNull: false,
-        unique: true
+        defaultValue: DataTypes.NOW
     },
-    Password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    AvatarID: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: Avatar,
-            key: 'AvatarID'
-        }
+    DeactivatedDate: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     sequelize,

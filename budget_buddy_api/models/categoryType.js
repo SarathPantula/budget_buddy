@@ -1,10 +1,10 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/dbConfig');
 
-class AvatarType extends Model { }
+class CategoryType extends Model { }
 
-AvatarType.init({
-    AvatarTypeId: {
+CategoryType.init({
+    CategoryTypeID: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
@@ -35,9 +35,7 @@ AvatarType.init({
     }
 }, {
     sequelize,
-    modelName: 'AvatarType',
-    tableName: 'AvatarTypes',
+    modelName: 'CategoryType',
+    tableName: 'CategoryTypes',
     timestamps: false
 });
-
-module.exports = AvatarType;
