@@ -1,5 +1,13 @@
-module.exports = (app) => {
-    app.use(function (err, req, res, next) {
-        res.status(404).json(err).send('Sorry, we cannot find that!');
+module.exports = (err, _req, res, _next) => {
+    console.error(err.stack);
+    
+    // Set a default status code if none is provided
+    const statusCode = err.statusCode || 500;
+    const message = `${err.message}` || `Internal Server Error`;
+
+    res.status(statusCode).json({
+        status: 'error',
+        statusCode,
+        message
     });
 };

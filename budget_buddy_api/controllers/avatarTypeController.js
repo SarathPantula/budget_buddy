@@ -1,10 +1,10 @@
-const AvatarTypeRepo = require('../repo/avatarTypeRepo');
+const AvatarTypeManager = require('../managers/avatarTypeManager');
 
 class AvatarTypeController {
 
     async getAllAvatarTypes(req, res) {
         try {
-            const avatarTypes = await AvatarTypeRepo.getAllAvatarTypes();
+            const avatarTypes = await AvatarTypeManager.getAllAvatarTypes();
             res.status(200).json(avatarTypes);
         } catch (err) {
             res.status(500).json(err);
@@ -14,7 +14,7 @@ class AvatarTypeController {
     async getAvatarTypeById(req, res) {
         try {
             const id = req.params.id;
-            const avatarType = await AvatarTypeRepo.getAvatarTypeById(id);
+            const avatarType = await AvatarTypeManager.getAvatarTypeById(id);
             res.status(200).json(avatarType);
         } catch (err) {
             res.status(500).json(err);
@@ -24,7 +24,7 @@ class AvatarTypeController {
     async createAvatarType(req, res) {
         try {
             const name = req.body.name;
-            const avatarType = await AvatarTypeRepo.createAvatarType(name);
+            const avatarType = await AvatarTypeManager.createAvatarType(name);
             res.status(200).json(avatarType);
         } catch (err) {
             res.status(500).json(err);
@@ -35,7 +35,7 @@ class AvatarTypeController {
         try {
             const id = req.params.id;
             const name = req.body.name;
-            const avatarType = await AvatarTypeRepo.updateAvatarType(id, name);
+            const avatarType = await AvatarTypeManager.updateAvatarType(id, name);
             res.status(200).json(avatarType);
         } catch (err) {
             res.status(500).json(err);
@@ -45,7 +45,7 @@ class AvatarTypeController {
     async deleteAvatarType(req, res) {
         try {
             const id = req.params.id;
-            const avatarType = await AvatarTypeRepo.deleteAvatarType(id);
+            const avatarType = await AvatarTypeManager.deleteAvatarType(id);
             res.status(200).json(avatarType);
         } catch (err) {
             res.status(500).json(err);

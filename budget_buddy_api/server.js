@@ -1,52 +1,15 @@
 const express = require('express');
 const sequelize = require('./config/dbConfig');
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
 const middlewares = require('./middleware');
-const avatarTypeRoutes = require('./routes/avatarTypeRoutes');
-const userRoutes = require('./routes/userRoutes');
-const avatarRoutes = require('./routes/avatarRoutes');
-const accountRoutes = require('./routes/accountRoutes');
+const router = require('./routes');
 
 const app = express();
 
 // Middleware configurations
-middlewares.bodyParser(app);
-
-// Swagger configuration
-const swaggerOptions = {
-    swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Budget Buddy API',
-            description: 'Budget Buddy API Information',
-            version: '1.0.0',
-            contact: {
-                name: 'Sarath Pantula'
-            },
-            servers: ['http://localhost:3000']
-        }
-    },
-    servers: [
-        {
-            url: 'http://localhost:3000',
-            description: 'Development server'
-        }
-    ],
-    // Path to the API docs
-    apis: ['./routes/*.js']
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+middlewares(app);
 
 // Routes
-app.use('/api/avatar-types', avatarTypeRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/avatars', avatarRoutes);
-app.use('/api/accounts', accountRoutes);
-
-// Error handling middleware
-middlewares.errorHandler(app);
+app.use('/api', router);
 
 // Database connection and server start
 sequelize.sync({ force: false })
