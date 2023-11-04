@@ -1,4 +1,4 @@
-const avatarManager = require('../repo/avatarManager');
+const avatarManager = require('../managers/avatarManager');
 
 class AvatarController {
 

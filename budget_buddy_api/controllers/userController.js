@@ -1,10 +1,10 @@
-const UserRepo = require('../repo/userRepo');
+const userManager = require('../managers/userManager');
 
 class UserController {
 
     async getAllUsers(req, res) {
         try {
-            const users = await UserRepo.getAllUsers();
+            const users = await userManager.getAllUsers();
             res.status(200).json(users);
         } catch (err) {
             res.status(500).json(err);
@@ -14,7 +14,7 @@ class UserController {
     async getUserById(req, res) {
         try {
             const id = req.params.id;
-            const user = await UserRepo.getUserById(id);
+            const user = await userManager.getUserById(id);
             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
@@ -24,7 +24,7 @@ class UserController {
     async getUserByEmail(req, res) {
         try {
             const email = req.params.email;
-            const user = await UserRepo.getUserByEmail(email);
+            const user = await userManager.getUserByEmail(email);
             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
@@ -41,7 +41,7 @@ class UserController {
             const dateJoined = req.body.dateJoined;
             const lastLogin = req.body.lastLogin;
             const isActive = req.body.isActive;
-            const user = await UserRepo.createUser(name, email, loginMethod, phoneNumber, photoURL, dateJoined, lastLogin, isActive);
+            const user = await userManager.createUser(name, email, loginMethod, phoneNumber, photoURL, dateJoined, lastLogin, isActive);
             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
@@ -59,7 +59,7 @@ class UserController {
             const dateJoined = req.body.dateJoined;
             const lastLogin = req.body.lastLogin;
             const isActive = req.body.isActive;
-            const user = await UserRepo.updateUser(id, name, email, loginMethod, phoneNumber, photoURL, dateJoined, lastLogin, isActive);
+            const user = await userManager.updateUser(id, name, email, loginMethod, phoneNumber, photoURL, dateJoined, lastLogin, isActive);
             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);
@@ -69,7 +69,7 @@ class UserController {
     async deleteUser(req, res) {
         try {
             const id = req.params.id;
-            const user = await UserRepo.deleteUser(id);
+            const user = await userManager.deleteUser(id);
             res.status(200).json(user);
         } catch (err) {
             res.status(500).json(err);

@@ -1,115 +1,22 @@
 const express = require('express');
-const CategoryTypeController = require('../controllers/categoryTypeController');
+const sequelize = require('./config/dbConfig');
+const middlewares = require('./middleware');
+const router = require('./routes');
 
-const router = express.Router();
+const app = express();
 
-/**
- * @swagger
- * /api/category-types:
- *   get:
- *     tags:
- *       - Category Types
- *     summary: Get all category types
- *     description: Get all category types
- *     responses:
- *       '200':
- *         description: Success
- */
-router.get('/', CategoryTypeController.getAllCategoryTypes);
+// Middleware configurations
+middlewares(app);
 
-/**
- * @swagger
- * /api/category-types/{id}:
- *   get:
- *     tags:
- *       - Category Types
- *     summary: Get category type by id
- *     description: Get category type by id
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: GUID
- *         required: true
- *         description: Category type id
- *     responses:
- *       '200':
- *         description: Success
- */
-router.get('/:id', CategoryTypeController.getCategoryTypeById);
+// Routes
+app.use('/api', router);
 
-/**
- * @swagger
- * /api/category-types:
- *   post:
- *     tags:
- *       - Category Types
- *     summary: Create category type
- *     description: Create category type
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *     required:
- *       - name
- *     responses:
- *       '200':
- *         description: Success
- */
-router.post('/', CategoryTypeController.createCategoryType);
-
-/**
- * @swagger
- * /api/category-types/{id}:
- *   put:
- *     tags:
- *       - Category Types
- *     summary: Update category type
- *     description: Update category type
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: GUID
- *         required: true
- *         description: Category type id
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *     responses:
- *       '200':
- *         description: Success
- */
-router.put('/:id', CategoryTypeController.updateCategoryType);
-
-/**
- * @swagger
- * /api/category-types/{id}:
- *   delete:
- *     tags:
- *       - Category Types
- *     summary: Delete category type
- *     description: Delete category type
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: GUID
- *         required: true
- *         description: Category type id
- *     responses:
- *       '200':
- *         description: Success
- */
-router.delete('/:id', CategoryTypeController.deleteCategoryType);
-
-module.exports = router;
+// Database connection and server start
+sequelize.sync({ force: false })
+    .then(result => {
+        app.listen(3000);
+        console.log('Server started on port 3000');
+    })
+    .catch(err => {
+        console.error(err)
+    });

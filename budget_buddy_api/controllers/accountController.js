@@ -1,4 +1,4 @@
-const accountManager = require('../repo/accountManager');
+const accountManager = require('../managers/accountManager');
 
 class AccountController {
 
