@@ -1,0 +1,29 @@
+const transactionType = require('../models/transactionType');
+
+class TransactionTypeRepo {
+    constructor(model) {
+        this.model = model;
+    }
+
+    async getAllTransactionTypes() {
+        return await this.model.getAllTransactionTypes();
+    }
+
+    async getTransactionTypeById(id) {
+        return await this.model.getTransactionTypeById(id);
+    }
+
+    async createTransactionType(name) {
+        return await this.model.createTransactionType(name);
+    }
+
+    async updateTransactionType(id, name) {
+        return await this.model.updateTransactionType(id, name);
+    }
+
+    async deleteTransactionType(id) {
+        return await this.model.deleteTransactionType(id);
+    }
+}
+
+module.exports = new TransactionTypeRepo(transactionType);

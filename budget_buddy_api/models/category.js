@@ -104,4 +104,3 @@ Category.associate = (models) => {
 };
 
 module.exports = Category;
-
